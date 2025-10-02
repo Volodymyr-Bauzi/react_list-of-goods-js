@@ -54,12 +54,29 @@ export const App = () => {
 
   const isOriginalOrder = arraysEqual(visibleGoods, goodsFromServer);
 
+  const handleSortAlphabetically = () => {
+    setSortBy(SORT_BY_ABC);
+  };
+
+  const handleSortByLength = () => {
+    setSortBy(SORT_BY_LEN);
+  };
+
+  const handleReverse = () => {
+    setIsReversed(prev => (prev === REVERSE ? '' : REVERSE));
+  };
+
+  const handleReset = () => {
+    setSortBy('');
+    setIsReversed(false);
+  };
+
   return (
     <div className="section content">
       <div className="buttons">
         <button
           onClick={() => {
-            setSortBy(SORT_BY_ABC);
+            handleSortAlphabetically();
           }}
           type="button"
           className={`button is-info ${sortBy === SORT_BY_ABC ? '' : 'is-light'}`}
@@ -69,7 +86,7 @@ export const App = () => {
 
         <button
           onClick={() => {
-            setSortBy(SORT_BY_LEN);
+            handleSortByLength();
           }}
           type="button"
           className={`button is-info ${sortBy === SORT_BY_LEN ? '' : 'is-light'}`}
@@ -78,9 +95,7 @@ export const App = () => {
         </button>
 
         <button
-          onClick={() =>
-            setIsReversed(prev => (prev === REVERSE ? '' : REVERSE))
-          }
+          onClick={() => handleReverse()}
           type="button"
           className={`button is-info ${isReversed ? '' : 'is-light'}`}
         >
@@ -90,8 +105,7 @@ export const App = () => {
         {!isOriginalOrder && (
           <button
             onClick={() => {
-              setSortBy('');
-              setIsReversed(false);
+              handleReset();
             }}
             type="button"
             className="button is-danger is-light"
